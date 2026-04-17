@@ -68,7 +68,7 @@ export default async function AftercareDetailPage({
         title={`${d.procedureName}`}
         subtitle={copy.aftercareGuide}
         breadcrumb={[
-          { label: copy.aftercareGuide, href: `/${l}` },
+          { label: copy.aftercareGuide },
           { label: meta.label, href: `/${l}/${tier}` },
           { label: d.procedureName },
         ]}

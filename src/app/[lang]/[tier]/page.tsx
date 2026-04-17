@@ -62,7 +62,7 @@ export default async function TierHubPage({
         title={meta.label}
         subtitle={meta.subtitle}
         breadcrumb={[
-          { label: copy.aftercareGuide, href: `/${l}` },
+          { label: copy.aftercareGuide },
           { label: meta.label },
         ]}
       />
