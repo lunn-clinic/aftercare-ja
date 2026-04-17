@@ -1,7 +1,8 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { notFound, redirect } from "next/navigation";
+import { notFound } from "next/navigation";
 import PageBanner from "@/components/PageBanner";
+import RedirectShim from "@/components/RedirectShim";
 import { getByTier, getTierMeta } from "@/data/aftercare";
 import { LANGS, ui, formatCopy } from "@/data/i18n";
 import type { Lang } from "@/data/types";
@@ -37,7 +38,7 @@ export default async function TierSelectPage({
   const l = lang as Lang;
   // 영어/중국어는 tier 선택 화면을 건너뛰고 premium 통합 페이지로 리디렉트
   if (UNIFIED_LANGS.includes(l)) {
-    redirect(`/${l}/premium`);
+    return <RedirectShim to={`/${l}/premium`} />;
   }
   const copy = ui[l];
   const basicCount = getByTier(l, "basic").length;

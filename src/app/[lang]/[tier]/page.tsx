@@ -1,7 +1,8 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { notFound, redirect } from "next/navigation";
+import { notFound } from "next/navigation";
 import PageBanner from "@/components/PageBanner";
+import RedirectShim from "@/components/RedirectShim";
 import { getCategories, getTierMeta } from "@/data/aftercare";
 import { LANGS, ui, formatCopy } from "@/data/i18n";
 import type { Lang, Tier } from "@/data/types";
@@ -47,7 +48,7 @@ export default async function TierHubPage({
   const t = tier as Tier;
   // 영어/중국어에서 basic URL로 들어오면 premium 통합 페이지로 리디렉트
   if (UNIFIED_LANGS.includes(l) && t === "basic") {
-    redirect(`/${l}/premium`);
+    return <RedirectShim to={`/${l}/premium`} />;
   }
   const copy = ui[l];
   const meta = getTierMeta(l, t);

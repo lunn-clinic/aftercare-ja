@@ -1,19 +1,14 @@
 import Link from "next/link";
-import { redirect } from "next/navigation";
+import RedirectShim from "@/components/RedirectShim";
 import { LANGS, langNativeName } from "@/data/i18n";
 import type { Lang } from "@/data/types";
 
-/**
- * 환경변수 DEFAULT_PATH를 런타임에 읽어야 하므로 정적 프리렌더 비활성.
- * 4100 포트(메인)는 DEFAULT_PATH 미설정 → 언어 선택 UI.
- * 4101~4104 포트는 DEFAULT_PATH 값에 따라 해당 라인으로 즉시 redirect.
- */
-export const dynamic = "force-dynamic";
+const DEFAULT_PATH =
+  process.env.NEXT_PUBLIC_DEFAULT_PATH || process.env.DEFAULT_PATH || "";
 
 export default function LangSelectPage() {
-  const defaultPath = process.env.DEFAULT_PATH;
-  if (defaultPath && defaultPath.startsWith("/")) {
-    redirect(defaultPath);
+  if (DEFAULT_PATH.startsWith("/")) {
+    return <RedirectShim to={DEFAULT_PATH} />;
   }
   return (
     <div className="min-h-screen flex flex-col">

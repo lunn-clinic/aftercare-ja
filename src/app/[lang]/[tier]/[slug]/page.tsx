@@ -1,7 +1,8 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { notFound, redirect } from "next/navigation";
+import { notFound } from "next/navigation";
 import PageBanner from "@/components/PageBanner";
+import RedirectShim from "@/components/RedirectShim";
 import {
   getBySlug,
   getTierMeta,
@@ -53,7 +54,7 @@ export default async function AftercareDetailPage({
   const l = lang as Lang;
   // 영어/중국어: basic URL로 들어오면 premium 경로로 리디렉트 (통합 정책)
   if (UNIFIED_LANGS.includes(l) && tier === "basic") {
-    redirect(`/${l}/premium/${slug}`);
+    return <RedirectShim to={`/${l}/premium/${slug}`} />;
   }
   const data = getBySlug(l, tier as Tier, slug);
   if (!data) notFound();
